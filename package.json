@@ -1,0 +1,32 @@
+{
+  "name": "op",
+  "version": "1.0.0",
+  "description": "Order processing utility for Lightspeed eCommerce",
+  "main": "app.js",
+  "repository": {
+    "url": "https://github.com/j-rockwell/eCommerce-Utility"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Rockwell",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/pdfkit": "^0.11.2",
+    "@types/printer": "^0.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "pdfkit": "^0.12.3",
+    "printer": "github:tojocky/node-printer",
+    "sendle-node": "^1.1.3"
+  }
+}
