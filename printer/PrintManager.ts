@@ -1,4 +1,5 @@
 import printer from 'printer';
+
 require('dotenv').config();
 
 // Gets default machine
@@ -11,7 +12,7 @@ const machine = printer.getPrinter(process.env.PRINTER_NAME);
  */
 export function getAvailableOptions(): void {
   const options: string[] = printer.getSupportedJobCommands();
-  console.log('Available job commands: ' + options);
+  console.log(`Available job commands: ${options}`);
 }
 
 /**
@@ -20,12 +21,11 @@ export function getAvailableOptions(): void {
  */
 export function sendToPrinter(filename: string): void {
   printer.printFile({
-    filename: filename,
+    filename,
     printer: machine.name,
     success: (jobID) => {
-      console.log('Processing print job #' + jobID);
+      console.log(`Processing print job #${jobID}`);
     },
-
     error: (err) => {
       console.error(err);
     },

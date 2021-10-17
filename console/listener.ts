@@ -1,5 +1,5 @@
 import readline from 'readline';
-import {getOrder} from '../request/lightspeed/lightspeed';
+import { getOrder } from '../request/lightspeed/lightspeed';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -9,14 +9,14 @@ const rl = readline.createInterface({
 /**
  * Takes over console to create a recursive listener for order IDs
  */
-export function readAsync() {
+export default function readAsync() {
   rl.question('\nEnter order ID: ', (answer) => {
-    if (answer == 'exit' || answer == 'quit' || answer == 'stop') {
+    if (answer === 'exit' || answer === 'quit' || answer === 'stop') {
       console.log('Shutting down...');
       return rl.close();
     }
 
     getOrder(answer);
-    readAsync(); // Recursive call to keep the program running
+    return readAsync(); // Recursive call to keep the program running
   });
 }

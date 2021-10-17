@@ -2,6 +2,7 @@ import axios from 'axios';
 import fs from 'fs';
 import PDFDocument from 'pdfkit';
 import { createOrder } from '../sendle/sendle';
+import { sendToPrinter } from '../../printer/PrintManager';
 
 require('dotenv').config();
 
@@ -11,6 +12,7 @@ const token: string | undefined = process.env.LIGHTSPEED_TOKEN;
  * Callback mapping for Lightspeed Products
  */
 interface Product {
+  // eslint-disable-next-line no-unused-vars
   (product: any): void;
 }
 
@@ -18,6 +20,7 @@ interface Product {
  * Callback mapping for Lightspeed Customers
  */
 interface Customer {
+  // eslint-disable-next-line no-unused-vars
   (customer: any): void;
 }
 
@@ -58,7 +61,9 @@ export function getOrder(id: string) {
           for (let i = 0; i < ids.length; i += 1) {
             const processedId = ids[i];
 
-            if (processedId == orderId) {
+            if (processedId === orderId) {
+              // Yeah I know, I know... it's terrible... But I'm just not gonna do that.
+              // eslint-disable-next-line no-use-before-define
               processOrder(order);
             }
           }
@@ -121,20 +126,18 @@ export function getCustomer(customer: string, callback: Customer) {
       Authorization: `Basic ${toBase64()}`,
       Accept: 'application/json',
     },
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        callback(res.data.customer);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .then(() => {
-      console.log(
-        `Completed customer information lookup for ${customer.link}`,
-      );
-    });
+  }).then((res) => {
+    if (res.status === 200) {
+      callback(res.data.customer);
+    }
+  }).catch((error) => {
+    console.error(`Encountered an error while trying to obtain customer information for ${customer.link}`);
+    console.log(error);
+  }).then(() => {
+    console.log(
+      `Completed customer information lookup for ${customer.link}`,
+    );
+  });
 }
 
 /**
@@ -193,16 +196,7 @@ function processOrder(order: any) {
 
         footerStart = padding;
 
-        doc.text(
-          `${product.brandTitle
-          } ${
-            product.productTitle
-          } ${
-            product.variantTitle}`,
-          64,
-          padding,
-          { width: 300 },
-        );
+        doc.text(`${product.brandTitle} ${product.productTitle} ${product.variantTitle}`, 64, padding, { width: 300 });
         doc.text(product.quantityOrdered, 450, padding);
         doc.text(`$${product.priceIncl}`, 0, padding, { align: 'right' });
 
@@ -215,14 +209,16 @@ function processOrder(order: any) {
       }
 
       // Footer / Totals
-      doc.text(`Subtotal    $${order.priceIncl}`, 0, footerStart + 60, {
-        align: 'right',
-      });
+      doc.text(`Subtotal    $${order.priceIncl}`, 0, footerStart + 60, { align: 'right' });
       doc.text(`Discounts    $${order.discountAmount}`, { align: 'right' });
 
+      // Build file
       doc.end();
 
-      // sendToPrinter(`./output/${order.number}.pdf`);
+      // Print
+      sendToPrinter(`./output/${order.number}.pdf`);
+
+      // Creates Sendle Label Order
       createOrder(order);
     });
   });
