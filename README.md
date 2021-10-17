@@ -1,11 +1,11 @@
 # Order Processing Utility
 
-###What's this?
+### What's this?
 This tool was developed to automate the ordering and printing of shipping labels through [Sendle](https://www.sendle.com/en-us) for new orders placed on the eCommerce platform, [Lightspeed](https://www.lightspeedhq.com/).
 
 When running this tool, you can input Lightspeed Order ID's (ORDXXXX, by default) and the tool will automatically order and process a label with Sendle. It will then take that label and print a label and a tracking page for your own records.
 
-###Installation
+### Installation
 **Requirements:**
 
 - Node.js
