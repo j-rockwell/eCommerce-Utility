@@ -1,4 +1,4 @@
-import readAsync from './console/listener';
+import listen from './console/listener';
 
 // Start listening for console input
-readAsync();
+listen();

@@ -9,7 +9,7 @@ const rl = readline.createInterface({
 /**
  * Takes over console to create a recursive listener for order IDs
  */
-export default function readAsync() {
+export default function listen() {
   rl.question('\nEnter order ID: ', (answer) => {
     if (answer === 'exit' || answer === 'quit' || answer === 'stop') {
       console.log('Shutting down...');
@@ -17,6 +17,6 @@ export default function readAsync() {
     }
 
     getOrder(answer);
-    return readAsync(); // Recursive call to keep the program running
+    return listen(); // Recursive call to keep the program running
   });
 }
