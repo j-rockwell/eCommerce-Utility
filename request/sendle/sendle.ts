@@ -1,14 +1,19 @@
 import {SendleClient} from 'sendle-node';
 import {sendToPrinter} from '../../printer/PrintManager';
 import fs from 'fs';
+require('dotenv').config();
+
+const sendleId: string | undefined = process.env.SENDLE_ID;
+const sendleApiKey: string | undefined = process.env.SENDLE_APIKEY;
+const debugMode: boolean = (process.env.DEBUG === 'true') ? true : false; 
 
 /**
  * Build a new Sendle Client
  */
 const client = new SendleClient({
-  sendleId: 'SANDBOX_john_avluxurygroup_c',
-  apiKey: 'sandbox_YCzTQMDJTghVhw4q9hBJ64f5',
-  sandbox: true,
+  sendleId: (sendleId === undefined || sendleId === null) ? '' : sendleId,
+  apiKey: (sendleApiKey === undefined || sendleApiKey === null) ? '' : sendleApiKey,
+  sandbox: debugMode,
   gotOptions: {},
 });
 
