@@ -4,6 +4,7 @@
   "description": "Order processing utility for Lightspeed eCommerce",
   "main": "app.js",
   "repository": {
+    "type": "git",
     "url": "https://github.com/j-rockwell/eCommerce-Utility"
   },
   "scripts": {
@@ -11,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "John Rockwell",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/pdfkit": "^0.11.2",
     "@types/printer": "^0.4.1",
@@ -23,6 +24,7 @@
     "typescript": "^4.4.2"
   },
   "dependencies": {
+    "@types/node": "^16.11.1",
     "axios": "^0.21.4",
     "dotenv": "^10.0.0",
     "pdfkit": "^0.12.3",

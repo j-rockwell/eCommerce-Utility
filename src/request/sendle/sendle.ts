@@ -3,16 +3,16 @@ import {sendToPrinter} from '../../printer/PrintManager';
 import fs from 'fs';
 require('dotenv').config();
 
-const sendleId: string | undefined = process.env.SENDLE_ID;
-const sendleApiKey: string | undefined = process.env.SENDLE_APIKEY;
-const debugMode: boolean = (process.env.DEBUG === 'true') ? true : false; 
+const sendleId: string = process.env.SENDLE_ID;
+const sendleApiKey: string = process.env.SENDLE_APIKEY;
+const debugMode: boolean = process.env.DEBUG;
 
 /**
  * Build a new Sendle Client
  */
 const client = new SendleClient({
-  sendleId: (sendleId === undefined || sendleId === null) ? '' : sendleId,
-  apiKey: (sendleApiKey === undefined || sendleApiKey === null) ? '' : sendleApiKey,
+  sendleId: sendleId,
+  apiKey: sendleApiKey,
   sandbox: debugMode,
   gotOptions: {},
 });

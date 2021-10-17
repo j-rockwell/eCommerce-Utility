@@ -3,7 +3,7 @@ import printer from 'printer';
 require('dotenv').config();
 
 // Gets default machine
-const machine = printer.getPrinter(process.env.PRINTER_NAME);
+const printerName = process.env.PRINTER_NAME ?? "";
 
 /**
  * Print the available job options
@@ -20,6 +20,8 @@ export function getAvailableOptions(): void {
  * @param filename File path
  */
 export function sendToPrinter(filename: string): void {
+  const machine = printer.getPrinter(printerName);
+  
   printer.printFile({
     filename,
     printer: machine.name,

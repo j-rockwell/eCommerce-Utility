@@ -6,7 +6,7 @@ import { sendToPrinter } from '../../printer/PrintManager';
 
 require('dotenv').config();
 
-const token: string | undefined = process.env.LIGHTSPEED_TOKEN;
+const token: string = process.env.LIGHTSPEED_TOKEN ?? "";
 
 /**
  * Callback mapping for Lightspeed Products
