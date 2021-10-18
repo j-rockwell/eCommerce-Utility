@@ -6,7 +6,7 @@ import { sendToPrinter } from '../../printer/PrintManager';
 
 require('dotenv').config();
 
-const token: string = process.env.LIGHTSPEED_TOKEN ?? "";
+const token: string = process.env.LIGHTSPEED_TOKEN ?? '';
 
 /**
  * Callback mapping for Lightspeed Products
@@ -29,7 +29,7 @@ interface Customer {
  * @returns {string | null} Base64 Encoded Lightspeed API Credentials
  */
 function toBase64(): string | null {
-  if (token === undefined || token === null) {
+  if (token === '') {
     console.error('Lightspeed API token was undefined');
     return null;
   }
@@ -73,7 +73,7 @@ export function getOrder(id: string) {
     .catch((err) => {
       console.error(
         `${'Encountered an error while attempting to'
-            + 'obtain order inforamtion from Lightspeed for '}${id}`,
+            + ' obtain order inforamtion from Lightspeed for '}${id}`,
       );
       console.error(err);
     })

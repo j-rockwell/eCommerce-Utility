@@ -1,6 +1,7 @@
-import {SendleClient} from 'sendle-node';
-import {sendToPrinter} from '../../printer/PrintManager';
+import { SendleClient } from 'sendle-node';
 import fs from 'fs';
+import { sendToPrinter } from '../../printer/PrintManager';
+
 require('dotenv').config();
 
 const sendleId: string = process.env.SENDLE_ID;
@@ -11,7 +12,7 @@ const debugMode: boolean = process.env.DEBUG;
  * Build a new Sendle Client
  */
 const client = new SendleClient({
-  sendleId: sendleId,
+  sendleId,
   apiKey: sendleApiKey,
   sandbox: debugMode,
   gotOptions: {},
@@ -24,16 +25,15 @@ const client = new SendleClient({
  */
 export async function getOrderLabel(id: string) {
   const label = await client.labels
-      .get({
-        orderId: id,
-        size: 'a4',
-      })
-      .then((pdf) => {
-        fs.writeFile('./output/test.pdf', pdf, 'binary', () => {
-          console.log('Finished downloading PDF from Sendle Request');
-          sendToPrinter('./output/test.pdf');
-        });
+    .get({
+      orderId: id,
+      size: 'a4',
+    }).then((pdf) => {
+      fs.writeFile('./output/test.pdf', pdf, 'binary', () => {
+        console.log('Finished downloading PDF from Sendle Request');
+        // sendToPrinter('./output/test.pdf');
       });
+    });
 
   return label;
 }
